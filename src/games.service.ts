@@ -12,7 +12,7 @@ export class GamesService {
 
     @InjectRepository(GameCell)
     private gameCellsRepository: Repository<GameCell>,
-  ) { }
+  ) {}
 
   async findOneGame(id: string) {
     return this.gamesRepository.findOneBy({ id });
@@ -42,7 +42,13 @@ export class GamesService {
  * Create matrix of GameCell based on rows and columns provided
  */
 export function createCells(rows: number, columns: number): GameCell[][] {
-  return new Array(rows).fill(null).map((_, row_idx) => new Array(columns).fill(null).map((_, col_idx) => makeCell(row_idx, col_idx)));
+  return new Array(rows)
+    .fill(null)
+    .map((_, row_idx) =>
+      new Array(columns)
+        .fill(null)
+        .map((_, col_idx) => makeCell(row_idx, col_idx)),
+    );
 }
 
 /**

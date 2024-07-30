@@ -1,9 +1,9 @@
-import { createCells, GamesService, makeCell } from "./games.service";
+import { createCells, GamesService, makeCell } from './games.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Game, GameCell } from './entities';
 
-describe('Game Service', function() {
+describe('Game Service', function () {
   let gameService: GamesService;
   const mockGamesRepository = {
     findOneBy: jest.fn(() => null),

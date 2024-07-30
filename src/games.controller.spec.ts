@@ -41,7 +41,6 @@ describe('GamesController', () => {
       it('should create a new game', async () => {
         const data = await gamesController.create(2, 3);
         expect(data).toBeInstanceOf(Game);
-
       });
     });
     it('should return a list of available games', async () => {
