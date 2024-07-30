@@ -14,11 +14,34 @@ describe('AppController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
   });
+  afterAll(async () => {
+    await app.close();
+  });
 
-  it('/ (GET)', () => {
+  it('/games (GET)', () => {
     return request(app.getHttpServer())
-      .get('/')
+      .get('/games')
+      .accept('json')
       .expect(200)
-      .expect('Hello World!');
+      .expect(function (res) {
+        expect(Array.isArray(res.body)).toBeTruthy();
+      });
+  });
+  it('/games (POST)', () => {
+    // TODO: Implement better testing of returned data, zod would be a good option.
+    return request(app.getHttpServer())
+      .post('/games')
+      .query({ rows: 5, columns: 10 })
+      .accept('json')
+      .expect(
+        201,
+        expect.objectContaining({
+          id: expect.anything(),
+          status: 'PENDING',
+          rows: 5,
+          columns: 10,
+          cells: expect.anything(),
+        }),
+      );
   });
 });
